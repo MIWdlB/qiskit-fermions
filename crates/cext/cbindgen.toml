@@ -1,0 +1,51 @@
+language = "C"
+include_version = true
+include_guard = "QISKIT_FERMIONS_H"
+style = "type"
+cpp_compat = true
+usize_is_size_t = true
+
+after_includes = """
+// Always expose [cfg(feature = "cbinding")] -- workaround for
+// https://github.com/mozilla/cbindgen/issues/995
+#define QISKIT_FERMIONS_WITH_CBINDINGS
+
+#include <qiskit.h>
+"""
+
+# cbindgen cannot expand procedural macros without depending on the nightly rust
+# toolchain. We still use such macros to avoid massive code duplication though,
+# so as long as macro expansion is unstable we must declare the generated C
+# function signatures manually below.
+trailer = """
+/// @ingroup qf_commutators
+QfFermionOperator *qf_ferm_op_commutator(const QfFermionOperator *op_a, const QfFermionOperator *op_b);
+/// @ingroup qf_commutators
+QfFermionOperator *qf_ferm_op_anti_commutator(const QfFermionOperator *op_a, const QfFermionOperator *op_b);
+/// @ingroup qf_commutators
+QfFermionOperator *qf_ferm_op_double_commutator(const QfFermionOperator *op_a, const QfFermionOperator *op_b, const QfFermionOperator *op_c, bool sign);
+
+/// @ingroup qf_commutators
+QfMajoranaOperator *qf_maj_op_commutator(const QfMajoranaOperator *op_a, const QfMajoranaOperator *op_b);
+/// @ingroup qf_commutators
+QfMajoranaOperator *qf_maj_op_anti_commutator(const QfMajoranaOperator *op_a, const QfMajoranaOperator *op_b);
+/// @ingroup qf_commutators
+QfMajoranaOperator *qf_maj_op_double_commutator(const QfMajoranaOperator *op_a, const QfMajoranaOperator *op_b, const QfMajoranaOperator *op_c, bool sign);
+"""
+
+[defines]
+"feature = cbinding" = "QISKIT_FERMIONS_WITH_CBINDINGS"
+
+[parse]
+parse_deps = true
+include = ["qiskit-fermions-core"]
+
+[enum]
+prefix_with_name = true
+
+[export.rename]
+"Complex64" = "QkComplex64"
+"ExitCode" = "QfExitCode"
+"FermionOperator" = "QfFermionOperator"
+"MajoranaOperator" = "QfMajoranaOperator"
+"FCIDump" = "QfFCIDump"

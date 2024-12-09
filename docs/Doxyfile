@@ -1,0 +1,16 @@
+INPUT = docs/cdoc/ dist/c/include/qiskit_fermions.h dist/c/include/qiskit_fermions/
+
+OPTIMIZE_OUTPUT_FOR_C = YES
+EXTRACT_ALL = YES
+ENABLE_PREPROCESSING = YES
+MACRO_EXPANSION = YES
+
+GENERATE_XML = YES
+XML_OUTPUT = docs/xml
+PREDEFINED = QISKIT_FERMIONS_C_PYTHON_INTERFACE=1
+
+GENERATE_HTML = NO
+GENERATE_LATEX = NO
+
+ALIASES = "rst=^^\verbatim embed:rst:leading-asterisk^^"
+ALIASES += "endrst=\endverbatim"

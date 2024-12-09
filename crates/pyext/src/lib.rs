@@ -1,0 +1,35 @@
+// This code is a Qiskit project.
+//
+// (C) Copyright IBM 2026.
+//
+// This code is licensed under the Apache License, Version 2.0. You may
+// obtain a copy of this license in the LICENSE.txt file in the root directory
+// of this source tree or at http://www.apache.org/licenses/LICENSE-2.0.
+//
+// Any modifications or derivative works of this code must retain this
+// copyright notice, and modified files need to carry a notice indicating
+// that they have been altered from the originals.
+
+use pyo3::prelude::*;
+use pyo3_stub_gen::{Result, StubInfo};
+
+pub mod mappers;
+pub mod operators;
+
+#[pymodule]
+mod _lib {
+    #[pymodule_export]
+    use super::operators::operators;
+
+    #[pymodule_export]
+    use super::mappers::mappers;
+}
+
+pub fn stub_info() -> Result<StubInfo> {
+    let manifest_dir: &::std::path::Path = env!("CARGO_MANIFEST_DIR").as_ref();
+    StubInfo::from_project_root(
+        "qiskit_fermions._lib".to_string(),
+        manifest_dir.join("../../python"),
+        true,
+    )
+}

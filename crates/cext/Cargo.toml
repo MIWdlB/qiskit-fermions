@@ -1,0 +1,27 @@
+[package]
+name = "qiskit-fermions-cext"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+build = "build.rs"
+
+[lib]
+name = "qiskit_fermions_cext"
+doctest = false
+crate-type = ["rlib"]
+
+[dependencies]
+qiskit-fermions-core.workspace = true
+qiskit-sys.workspace = true
+ndarray.workspace = true
+num-complex.workspace = true
+paste.workspace = true
+thiserror.workspace = true
+
+[build-dependencies]
+cbindgen = "0.29"
+
+[features]
+default = ["cbinding"]
+cbinding = []
