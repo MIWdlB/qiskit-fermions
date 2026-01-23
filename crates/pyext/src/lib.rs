@@ -30,6 +30,5 @@ pub fn stub_info() -> Result<StubInfo> {
     StubInfo::from_project_root(
         "qiskit_fermions._lib".to_string(),
         manifest_dir.join("../../python"),
-        true,
     )
 }
